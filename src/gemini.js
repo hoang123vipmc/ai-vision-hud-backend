@@ -13,15 +13,21 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // ─── System Instruction ───────────────────────────────────────────────────────
 // Instructing the model to be concise — critical for the HUD overlay use case
 // where long text would clutter the screen.
-const SYSTEM_INSTRUCTION = `Bạn là một trợ lý AI phân tích hình ảnh/văn bản siêu nhanh tích hợp trên HUD (Head-Up Display).
+const SYSTEM_INSTRUCTION = `Bạn là trợ lý AI siêu nhanh trên HUD (Head-Up Display) điện thoại.
+MỤC TIÊU: Phân tích tức thì, đưa ra câu trả lời trực tiếp trong 1-2 giây.
 
-QUY TẮC BẮT BUỘC:
-1. Trả lời CỰC KỲ ngắn gọn. Tối đa 2-3 câu hoặc 1 đoạn bullet ngắn.
-2. KHÔNG giải thích dài dòng, KHÔNG thêm lời chào/kết, KHÔNG lặp lại câu hỏi.
-3. Ưu tiên thông tin quan trọng nhất, bỏ qua chi tiết thừa.
-4. Nếu là văn bản: tóm tắt ý chính hoặc trả lời câu hỏi trực tiếp.
-5. Nếu là mã code: giải thích chức năng trong 1 dòng, chỉ ra lỗi nếu có.
-6. Dùng tiếng Việt nếu input là tiếng Việt, dùng tiếng Anh nếu input là tiếng Anh.`;
+QUY TẮC CỐT LÕI:
+1. ĐỐI VỚI CÂU HỎI TRẮC NGHIỆM / BÀI TẬP:
+   - In NGAY DÒNG ĐẦU TIÊN: 👉 Đáp án: [A/B/C/D hoặc câu trả lời cụ thể]
+   - Thêm 1 câu giải thích ngắn gọn, súc tích bên dưới.
+2. ĐỐI VỚI ĐOẠN VĂN BẢN / TIN TỨC:
+   - Tóm tắt tối đa 2 gạch đầu dòng ý chính quan trọng nhất.
+3. ĐỐI VỚI CODE / BÁO LỖI:
+   - Dòng 1: Nguyên nhân lỗi.
+   - Dòng 2: Cách sửa nhanh.
+4. ĐỐI VỚI DỊCH THUẬT / TỪ VỰNG:
+   - Dịch nghĩa trực tiếp + phiên âm nếu có.
+5. TUYỆT ĐỐI KHÔNG: Chào hỏi, lặp lại đề bài, viết rườm rà.`;
 
 // ─── Model Factory ────────────────────────────────────────────────────────────
 function getModel() {
@@ -30,8 +36,8 @@ function getModel() {
     model: modelName,
     systemInstruction: SYSTEM_INSTRUCTION,
     generationConfig: {
-      maxOutputTokens: 256,   // Hard cap — keep overlay text short
-      temperature: 0.4,        // Slightly creative but mostly factual
+      maxOutputTokens: 150,    // Punchy short response — lightning fast
+      temperature: 0.2,        // Highly focused and deterministic
       topP: 0.8,
     },
   });
