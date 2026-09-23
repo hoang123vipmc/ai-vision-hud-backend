@@ -109,7 +109,7 @@ function handleWebSocketConnection(ws) {
   safeSend(ws, {
     type: 'connected',
     message: 'AI Vision HUD Backend ready.',
-    model: process.env.GEMINI_MODEL || 'gemini-3.6-flash',
+    model: process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite',
   });
 }
 

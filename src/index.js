@@ -25,7 +25,7 @@ app.use(express.json({ limit: '10mb' }));
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
-    model: process.env.GEMINI_MODEL || 'gemini-3.6-flash',
+    model: process.env.GEMINI_MODEL || 'gemini-3.5-flash-lite',
     timestamp: new Date().toISOString(),
   });
 });
