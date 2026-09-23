@@ -25,7 +25,7 @@ QUY TẮC BẮT BUỘC:
 
 // ─── Model Factory ────────────────────────────────────────────────────────────
 function getModel() {
-  const modelName = process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp';
+  const modelName = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
   return genAI.getGenerativeModel({
     model: modelName,
     systemInstruction: SYSTEM_INSTRUCTION,

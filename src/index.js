@@ -25,7 +25,7 @@ app.use(express.json({ limit: '10mb' }));
 app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
-    model: process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp',
+    model: process.env.GEMINI_MODEL || 'gemini-3.6-flash',
     timestamp: new Date().toISOString(),
   });
 });
@@ -75,7 +75,7 @@ server.listen(PORT, () => {
   console.log(`[Server] AI Vision HUD Backend running on port ${PORT}`);
   console.log(`[Server] WebSocket endpoint: ws://localhost:${PORT}/ws`);
   console.log(`[Server] Health check: http://localhost:${PORT}/api/health`);
-  console.log(`[Server] Gemini model: ${process.env.GEMINI_MODEL || 'gemini-2.0-flash-exp'}`);
+  console.log(`[Server] Gemini model: ${process.env.GEMINI_MODEL || 'gemini-3.6-flash'}`);
 });
 
 // Graceful shutdown
